@@ -1,0 +1,40 @@
+
+PLAY [yyang334] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [yyang334]
+
+TASK [Update Apache] ***********************************************************
+ok: [yyang334]
+
+TASK [Install EPEL repository] *************************************************
+ok: [yyang334]
+
+TASK [Remove 'tree' package] ***************************************************
+ok: [yyang334]
+
+TASK [Set hostname to yyang334] ************************************************
+ok: [yyang334]
+
+TASK [Create new user with sudo access] ****************************************
+ok: [yyang334]
+
+TASK [Allow user to run sudo without password] *********************************
+ok: [yyang334]
+
+TASK [Configure SSH for new user] **********************************************
+ok: [yyang334]
+
+TASK [Create directory structure for labs] *************************************
+ok: [yyang334] => (item=1)
+ok: [yyang334] => (item=2)
+ok: [yyang334] => (item=3)
+ok: [yyang334] => (item=4)
+ok: [yyang334] => (item=5)
+ok: [yyang334] => (item=6)
+ok: [yyang334] => (item=7)
+ok: [yyang334] => (item=8)
+
+PLAY RECAP *********************************************************************
+yyang334                   : ok=9    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
