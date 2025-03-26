@@ -1,0 +1,60 @@
+---
+- hosts: yyang334
+  user: student
+  become: yes
+
+  vars:
+    apache_version: 2.6
+    motd_warning: "WARNING: used by ICT faculty/students only.\n"
+    testserver: yes
+
+  tasks:
+    - name: Update Apache
+      yum:
+        name: httpd
+        state: latest
+
+    - name: Install EPEL repository
+      yum:
+        name: epel-release
+        state: present
+
+    - name: Remove 'tree' package
+      yum:
+        name: tree
+        state: absent
+
+    - name: Set hostname to yyang334
+      hostname:
+        name: yyang334
+
+    - name: Create new user with sudo access
+      user:
+        name: yyang334
+        groups: wheel
+        append: yes
+        shell: /bin/bash
+
+    - name: Allow user to run sudo without password
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: 'yyang334'
+        line: 'yyang334 ALL=(ALL) NOPASSWD:ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Configure SSH for new user
+      copy:
+        src: "/home/yyang334/.ssh/id_rsa.pub"
+        dest: "/home/yyang334/.ssh/authorized_keys"
+        owner: "yyang334"
+        group: "yyang334"
+        mode: '0600'
+
+    - name: Create directory structure for labs
+      file:
+        path: "/home/yyang334/ops445/lab{{ item }}"
+        state: directory
+        owner: "yyang334"
+        group: "yyang334"
+      loop: "{{ range(1, 9) | list }}"
